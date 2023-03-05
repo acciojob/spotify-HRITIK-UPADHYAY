@@ -55,7 +55,8 @@ public class SpotifyRepository {
                 present = true;
 
                 //update the artistAlbumHashMap.
-                List<Album> albums = artistAlbumMap.get(artist);
+                List<Album> albums = new ArrayList<>();
+                albums = artistAlbumMap.get(artist);
                 albums.add(new Album(title));
                 artistAlbumMap.put(artist, albums);
 
@@ -255,7 +256,7 @@ public class SpotifyRepository {
     }
 
     public String mostPopularArtist() {
-        String artistName = null;
+        String artistName = "";
         int noOfLikes = 0;
         for(Artist artist : artists){
             if(noOfLikes < artist.getLikes()){
@@ -268,7 +269,7 @@ public class SpotifyRepository {
     }
 
     public String mostPopularSong() {
-        String songTitle = null;
+        String songTitle = "";
         int noOfLikes = 0;
         for(Song song : songs){
             if(noOfLikes < song.getLikes()){
