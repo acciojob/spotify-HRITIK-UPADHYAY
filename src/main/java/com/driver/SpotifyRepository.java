@@ -100,7 +100,7 @@ public class SpotifyRepository {
         playlists.add(pl); //create a playlist.
 
         List<Song> song1 = new ArrayList<>();
-        if(playlistSongMap.containsKey(pl)) song1 = playlistSongMap.get(pl);
+       // if(playlistSongMap.containsKey(pl)) song1 = playlistSongMap.get(pl);
         for(Song song : songs){
             if(song.getLength() == length){
                 song1.add(song);
