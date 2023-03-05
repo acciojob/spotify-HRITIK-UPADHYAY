@@ -96,25 +96,27 @@ public class SpotifyRepository {
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-        playlists.add(new Playlist(title)); //create a playlist.
+        Playlist pl = new Playlist(title);
+        playlists.add(pl); //create a playlist.
 
         List<Song> song1 = new ArrayList<>();
-        if(playlistSongMap.containsKey(new Playlist(title))) song1 = playlistSongMap.get(new Playlist(title));
+        if(playlistSongMap.containsKey(pl)) song1 = playlistSongMap.get(pl);
         for(Song song : songs){
             if(song.getLength() == length){
                 song1.add(song);
             }
         }
 
-        playlistSongMap.put(new Playlist(title), song1);
+        playlistSongMap.put(pl, song1);
 
         boolean present = false;
         for(User user : users){
             if(user.getMobile().equals(mobile)){
-                creatorPlaylistMap.put(user, new Playlist(title));
-                List<User> users1 = playlistListenerMap.get(new Playlist(title));
+                creatorPlaylistMap.put(user, pl);
+                List<User> users1 = new ArrayList<>();
+                if(playlistListenerMap.containsKey(pl)) users1 = playlistListenerMap.get(pl);
                 users1.add(user);
-                playlistListenerMap.put(new Playlist(title), users1);
+                playlistListenerMap.put(pl, users1);
                 present = true;
                 break;
             }
@@ -122,7 +124,7 @@ public class SpotifyRepository {
 
         if(!present) throw new RuntimeException("User does not exist");
 
-        return playlists.get(playlists.size()-1);
+        return pl;
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
