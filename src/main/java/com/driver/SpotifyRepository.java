@@ -202,43 +202,45 @@ public class SpotifyRepository {
         boolean songPresent = false;
         Song updateSong = null;
         boolean isSongLike = false;
+        Song spresent = null;
+        User upresent = null;
 
-        for(Song song : songs){
-            if(song.getTitle().equals(songTitle)){
+        for(Song s : songs){
+            if(s.getTitle().equals(songTitle)) {
+                spresent = s;
                 songPresent = true;
-                for(User user : songLikeMap.get(song)){
-                    if(user.getMobile().equals(mobile)){
-                        userPresent = true;
-                        updateSong = song;
-                        isSongLike = true;
-                        break;
-                    }
-                }
+                break;
             }
         }
 
-        if(!isSongLike){
-            for(Song song : songs){
-                if(song.getTitle().equals(songTitle)){
-                    songPresent = true;
-                    for(User user : users){
-                        if(user.getMobile().equals(mobile)){
-                            userPresent = true;
-                            song.setLikes(song.getLikes()+1);
+        for(User u : users){
+            if(u.getMobile().equals(mobile)){
+                upresent = u;
+                userPresent = true;
+                break;
+            }
+        }
 
-                            List<User> users1 = new ArrayList<>();
-                            if(songLikeMap.containsKey(song)) users1 = songLikeMap.get(song);
-                            users1.add(user);
-                            songLikeMap.put(song, users1);
-                            break;
-                        }
-                    }
+        for(Song s : songLikeMap.keySet()){
+            for(User u : songLikeMap.get(s)){
+                if(u.getMobile().equals(mobile)){
+                    isSongLike = true;
+                    break;
                 }
             }
         }
 
         if(!userPresent) throw new RuntimeException("User does not exist");
         if(!songPresent) throw new RuntimeException("Song does not exist");
+
+        if(!isSongLike){
+            spresent.setLikes(spresent.getLikes() + 1);
+
+            List<User> users1 = new ArrayList<>();
+            if (songLikeMap.containsKey(spresent)) users1 = songLikeMap.get(spresent);
+            users1.add(upresent);
+            songLikeMap.put(spresent, users1);
+        }
 
         //artist like the song.
         Album albumName = null;  //find the album in which song is present.
