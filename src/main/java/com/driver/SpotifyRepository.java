@@ -280,10 +280,10 @@ public class SpotifyRepository {
     public String mostPopularSong() {
         String songTitle = null;
         int noOfLikes = 0;
-        for(Song song : songs){
-            if(noOfLikes <= song.getLikes()){
-                noOfLikes = song.getLikes();
-                songTitle = song.getTitle();
+        for(int i=0; i<songs.size(); i++){
+            if(noOfLikes <= songs.get(i).getLikes()){
+                noOfLikes = songs.get(i).getLikes();
+                songTitle = songs.get(i).getTitle();
             }
         }
         return songTitle;
