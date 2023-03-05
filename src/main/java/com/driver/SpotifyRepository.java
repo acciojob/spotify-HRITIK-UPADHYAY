@@ -274,9 +274,16 @@ public class SpotifyRepository {
     public String mostPopularSong() {
         String songTitle = null;
         int noOfLikes = 0;
-        for(Song song : songs){
-            if(noOfLikes <= song.getLikes()){
-                noOfLikes = song.getLikes();
+//        for(Song song : songs){
+//            if(noOfLikes <= song.getLikes()){
+//                noOfLikes = song.getLikes();
+//                songTitle = song.getTitle();
+//            }
+//        }
+
+        for(Song song : songLikeMap.keySet()){
+            if(noOfLikes <= songLikeMap.get(song).size()){
+                noOfLikes = songLikeMap.get(song).size();
                 songTitle = song.getTitle();
             }
         }
