@@ -110,13 +110,12 @@ public class SpotifyRepository {
         playlistSongMap.put(pl, song1);
 
         boolean present = false;
-        for(User user : users){
-            if(user.getMobile().equals(mobile)){
-                creatorPlaylistMap.put(user, pl);
-                List<User> users1 = new ArrayList<>();
-                if(playlistListenerMap.containsKey(pl)) users1 = playlistListenerMap.get(pl);
-                users1.add(user);
-                playlistListenerMap.put(pl, users1);
+        for(User user1 : users){
+            if(user1.getMobile().equals(mobile)){
+                creatorPlaylistMap.put(user1, pl);
+                List<User> user = new ArrayList<User>();
+                user.add(user1);
+                playlistListenerMap.put(pl, user);
                 present = true;
                 break;
             }
