@@ -73,7 +73,7 @@ public class SpotifyRepository {
             artistAlbumMap.put(new Artist(artistName), albums);
         }
 
-        return albums.get(artists.size()-1);
+        return albums.get(albums.size()-1);
     }
 
     public Song createSong(String title, String albumName, int length) throws Exception{
