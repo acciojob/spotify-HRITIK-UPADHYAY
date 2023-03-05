@@ -1,6 +1,5 @@
 package com.driver;
 
-import java.time.LocalDate;
 import java.util.*;
 
 import org.springframework.stereotype.Repository;
@@ -126,11 +125,11 @@ public class SpotifyRepository {
         playlists.add(new Playlist(title)); //create the playList.
 
         List<Song> songs = new ArrayList<>();
-        if(playlistSongMap.containsKey(new Playlist(title))) songs = playlistSongMap.get(new Playlist(title));
         for(Song song : songs){
-            if(song.getTitle().equals(title)){
-                songs.add(song);
-            }
+           for(String titles : songTitles){
+               if(song.getTitle().equals(titles))
+                   songs.add(song);
+           }
         }
 
         playlistSongMap.put(new Playlist(title), songs);
