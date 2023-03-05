@@ -226,10 +226,10 @@ public class SpotifyRepository {
                             userPresent = true;
                             song.setLikes(song.getLikes()+1);
 
-                            List<User> users = new ArrayList<>();
-                            if(songLikeMap.containsKey(song)) users = songLikeMap.get(song);
-                            users.add(user);
-                            songLikeMap.put(song, users);
+                            List<User> users1 = new ArrayList<>();
+                            if(songLikeMap.containsKey(song)) users1 = songLikeMap.get(song);
+                            users1.add(user);
+                            songLikeMap.put(song, users1);
                             break;
                         }
                     }
