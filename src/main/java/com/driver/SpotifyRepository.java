@@ -55,7 +55,7 @@ public class SpotifyRepository {
                 present = true;
 
                 //update the artistAlbumHashMap.
-                List<Album> albums = new ArrayList<>();
+                List<Album> albums = new ArrayList<Album>();
                 if(artistAlbumMap.containsKey(artist)) albums = artistAlbumMap.get(artist);
                 albums.add(new Album(title));
                 artistAlbumMap.put(artist, albums);
@@ -66,7 +66,11 @@ public class SpotifyRepository {
 
         if(!present){
             artists.add(new Artist(artistName));
+
+            //update the artistAlbumHashMap.
+            List<Album> albums = new ArrayList<Album>();
             albums.add(new Album(title));
+            artistAlbumMap.put(new Artist(artistName), albums);
         }
 
         return albums.get(artists.size()-1);
