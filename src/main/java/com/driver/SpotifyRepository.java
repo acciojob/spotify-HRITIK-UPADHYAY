@@ -163,36 +163,44 @@ public class SpotifyRepository {
         boolean userExist = false;
         boolean playlistExist = false;
         Playlist playlistName = null;
-        for(Playlist playlist : playlists){
+        User uName = null;
+
+        for(Playlist playlist : playlists) {
             if(playlist.getTitle().equals(playlistTitle)){
                 playlistExist = true;
-                for(User user : users){
-                    if(user.getMobile().equals(mobile)){
-                        userExist = true;
-                        if(!creatorPlaylistMap.containsKey(user)){
-                            boolean userListener = false;
-                            for(User user1 : playlistListenerMap.get(playlist)){
-                                if(user == user1){
-                                    userListener = true;
-                                    break;
-                                }
-                            }
-
-                            if(userListener) break;
-                            else {
-                                List<User> user2 = new ArrayList<>();
-                                if(playlistListenerMap.containsKey(playlist)) user2 = playlistListenerMap.get(playlist);
-                                user2.add(user);
-                                playlistListenerMap.put(playlist, user2);
-                            }
-                        }
-                    }
-                }
-                if(!userExist) throw new RuntimeException("User does not exist");
                 playlistName = playlist;
+                break;
             }
         }
+
         if(!playlistExist) throw new RuntimeException("Playlist does not exist");
+
+        for(User u : users){
+            if(u.getMobile().equals(mobile)){
+                userExist = true;
+                uName = u;
+                break;
+            }
+        }
+
+        if(!userExist) throw new RuntimeException("User does not exist");
+
+        boolean isUserCreator = false;
+        boolean isUserListener = false;
+
+        if(creatorPlaylistMap.containsKey(uName)) isUserCreator = true;
+            for(User u : playlistListenerMap.get(playlistName)){
+                if(u == uName) isUserListener = true;
+            }
+
+        if(!isUserCreator) creatorPlaylistMap.put(uName, playlistName);
+
+        if(!isUserListener){
+            List<User> userList = new ArrayList<>();
+            if(playlistListenerMap.containsKey(playlistName)) userList = playlistListenerMap.get(playlistName);
+            userList.add(uName);
+            playlistListenerMap.put(playlistName, userList);
+        }
 
         return playlistName;
     }
