@@ -56,7 +56,7 @@ public class SpotifyRepository {
 
                 //update the artistAlbumHashMap.
                 List<Album> albums = new ArrayList<>();
-                albums = artistAlbumMap.get(artist);
+                if(artistAlbumMap.containsKey(artist)) albums = artistAlbumMap.get(artist);
                 albums.add(new Album(title));
                 artistAlbumMap.put(artist, albums);
 
@@ -80,7 +80,8 @@ public class SpotifyRepository {
                 present = true;
 
                 //update the albumSongHashMap.
-                List<Song> songs = albumSongMap.get(album);
+                List<Song> songs = new ArrayList<>();
+                if(albumSongMap.containsKey(album)) songs = albumSongMap.get(album);
                 songs.add(new Song(title, length));
                 albumSongMap.put(album, songs);
                 break;
@@ -173,7 +174,8 @@ public class SpotifyRepository {
 
                             if(userListener) break;
                             else {
-                                List<User> user2 = playlistListenerMap.get(playlist);
+                                List<User> user2 = new ArrayList<>();
+                                if(playlistListenerMap.containsKey(playlist)) user2 = playlistListenerMap.get(playlist);
                                 user2.add(user);
                                 playlistListenerMap.put(playlist, user2);
                             }
@@ -218,7 +220,8 @@ public class SpotifyRepository {
                             userPresent = true;
                             song.setLikes(song.getLikes()+1);
 
-                            List<User> users = songLikeMap.get(song);
+                            List<User> users = new ArrayList<>();
+                            if(songLikeMap.containsKey(song)) users = songLikeMap.get(song);
                             users.add(user);
                             songLikeMap.put(song, users);
                             break;
