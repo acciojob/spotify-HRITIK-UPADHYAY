@@ -58,14 +58,14 @@ public class SpotifyRepository {
             }
         }
 
+        Artist at = new Artist(artistName);
         if(!present){
-            artists.add(new Artist(artistName));
+            artists.add(at);
             albums.add(a);
         }
 
         //update the artistAlbumHashMap.
         List<Album> albums1 = new ArrayList<Album>();
-        Artist at = new Artist(artistName);
         if(artistAlbumMap.containsKey(at)) albums1 = artistAlbumMap.get(at);
         albums1.add(a);
         artistAlbumMap.put(at, albums1);
